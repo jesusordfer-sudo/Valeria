@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+  <meta name="theme-color" content="#120d18">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Valeria ❤️">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <title>Valeria ❤️</title>
+  <style>
+    :root{--bg:#0d0a10;--card:rgba(255,255,255,.075);--border:rgba(255,255,255,.11);--text:#fff8fb;--muted:#bbaeb7;--pink:#ff5f8f;--pink2:#ff8bad}
+    *{box-sizing:border-box}
+    html,body{margin:0;min-height:100%;background:radial-gradient(circle at 50% 0,#3a1729 0,#180e18 34%,var(--bg) 72%);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif}
+    body{min-height:100svh;padding:env(safe-area-inset-top) 18px env(safe-area-inset-bottom);overflow-x:hidden}
+    .wrap{width:min(680px,100%);margin:0 auto;padding:34px 0 30px}
+    .hero{text-align:center;padding:18px 8px 24px}
+    .heart{font-size:34px;display:inline-block;filter:drop-shadow(0 0 18px rgba(255,95,143,.35));animation:pulse 2.5s ease-in-out infinite}
+    @keyframes pulse{50%{transform:scale(1.08)}}
+    h1{font-size:36px;letter-spacing:-1.5px;margin:8px 0 5px;font-weight:750}
+    .subtitle{color:var(--muted);font-size:15px}
+    .card{position:relative;background:linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.045));border:1px solid var(--border);border-radius:26px;padding:25px 20px 22px;margin:13px 0;box-shadow:0 18px 50px rgba(0,0,0,.22);backdrop-filter:blur(18px)}
+    .label{font-size:13px;text-transform:uppercase;letter-spacing:1.4px;color:var(--pink2);font-weight:700}
+    h2{font-size:22px;margin:7px 0 3px;letter-spacing:-.4px}
+    .date{font-size:13px;color:var(--muted);margin-bottom:19px}
+    .counter{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+    .unit{background:rgba(0,0,0,.17);border-radius:15px;padding:12px 4px;text-align:center}
+    .num{font-variant-numeric:tabular-nums;font-size:24px;font-weight:700;letter-spacing:-.7px}
+    .u{font-size:10px;color:var(--muted);margin-top:3px;text-transform:uppercase;letter-spacing:.6px}
+    .footer{text-align:center;color:#82747e;font-size:12px;margin:25px 0 5px}
+    .note{text-align:center;color:var(--muted);font-size:12px;margin-top:18px}
+    @media(max-width:390px){h1{font-size:32px}.num{font-size:20px}.card{padding:21px 14px}}
+  </style>
+</head>
+<body>
+<main class="wrap">
+  <header class="hero">
+    <div class="heart">❤️</div>
+    <h1>Valeria</h1>
+    <div class="subtitle">Nuestro tiempo juntos</div>
+  </header>
+
+  <section class="card">
+    <div class="label">El principio</div>
+    <h2>Desde que nos conocimos</h2>
+    <div class="date">21 de mayo de 2026</div>
+    <div class="counter" id="known">
+      <div class="unit"><div class="num">—</div><div class="u">Días</div></div>
+      <div class="unit"><div class="num">—</div><div class="u">Horas</div></div>
+      <div class="unit"><div class="num">—</div><div class="u">Minutos</div></div>
+      <div class="unit"><div class="num">—</div><div class="u">Segundos</div></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="label">El comienzo</div>
+    <h2>Desde que le pedí salir</h2>
+    <div class="date">26 de junio de 2026</div>
+    <div class="counter" id="asked">
+      <div class="unit"><div class="num">—</div><div class="u">Días</div></div>
+      <div class="unit"><div class="num">—</div><div class="u">Horas</div></div>
+      <div class="unit"><div class="num">—</div><div class="u">Minutos</div></div>
+      <div class="unit"><div class="num">—</div><div class="u">Segundos</div></div>
+    </div>
+  </section>
+
+  <div class="note">Hecho para vosotros · se actualiza cada segundo</div>
+  <div class="footer">Valeria ❤️</div>
+</main>
+
+<script>
+  // Puedes cambiar las horas aquí si las conoces.
+  // Formato: YYYY-MM-DDTHH:MM:SS+02:00
+  const events = {
+    known: "2026-05-21T00:00:00+02:00",
+    asked: "2026-06-26T00:00:00+02:00"
+  };
+
+  function update(id, iso) {
+    const start = new Date(iso);
+    const now = new Date();
+    let diff = now - start;
+    if (diff < 0) diff = 0;
+
+    const totalSeconds = Math.floor(diff / 1000);
+    const days = Math.floor(totalSeconds / 86400);
+    const hours = Math.floor((totalSeconds % 86400) / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+
+    const values = [days, hours, minutes, seconds];
+    document.querySelectorAll(`#${id} .num`).forEach((el,i) => {
+      el.textContent = String(values[i]).padStart(i === 0 ? 1 : 2, "0");
+    });
+  }
+
+  function tick() {
+    update("known", events.known);
+    update("asked", events.asked);
+  }
+  tick();
+  setInterval(tick, 1000);
+
+  // Evita que Safari mantenga un contador congelado al volver a la página.
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) tick(); });
+</script>
+</body>
+</html>
