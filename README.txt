@@ -1,7 +1,7 @@
 V&J — contador de tiempo transcurrido
 
-- Único contador desde el 21 de mayo de 2026 a las 00:00 (hora peninsular española).
-- Muestra años, meses, días, horas y minutos.
+- Único contador desde el 21 de mayo de 2026 a las 20:45 (hora peninsular española).
+- Muestra años, meses, días, horas, minutos y segundos.
 - Interfaz negra y plateada, sin corazones ni referencias personales.
 - Icono con V&J plateado sobre fondo negro.
 
@@ -12,4 +12,4 @@ Publicación:
 4. En Build and deployment, selecciona Deploy from a branch, branch main y folder /(root); guarda.
 5. Cuando aparezca la URL, ábrela en Safari en el iPhone > Compartir > Añadir a pantalla de inicio.
 
-La hora inicial está configurada a las 00:00 del 21/05/2026, zona horaria peninsular española (+02:00).
+La hora inicial está configurada a las 20:45 del 21/05/2026, zona horaria peninsular española (+02:00).
